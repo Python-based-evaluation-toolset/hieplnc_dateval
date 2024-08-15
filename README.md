@@ -1,3 +1,3 @@
-# Data Parser
+# hieplnc_txt2csv (Data Parser)
 
-A python framework to convert raw txt file to structured file based on map-reduce framework.
+A python framework to convert raw log file to csv file based on map-reduce framework.
