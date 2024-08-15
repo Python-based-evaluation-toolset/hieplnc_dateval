@@ -1,10 +1,11 @@
 import argparse
 import csv
 import sys
+import os
 
 parser = argparse.ArgumentParser(description='Text to csv2')
 parser.add_argument("--engine", help="python consists of parser engine.", required=True)
-parser.add_argument("--text", help="text file content raw data.", required=True)
+parser.add_argument("--logs", help="text folder holds log data.", required=True)
 parser.add_argument("--csvout", help="output csv file.")
 parser.add_argument("--stdout", help="write to stdout", action=argparse.BooleanOptionalAction)
 args = parser.parse_args()
@@ -21,8 +22,11 @@ ctx = {
     'user': {}, # user-space states
 }
 
-with open(args.text, 'r') as file:
-    ctx['dat'] = file.readlines()
+files = os.listdir(args.logs)
+for file in files:
+    with open(f'{args.logs}/{file}', 'r') as f:
+        ctx['dat'].append(f'{args.logs}/{file}')
+        ctx['dat'] = ctx['dat'] + f.readlines()
 
 engine['init_func'](ctx)
 
