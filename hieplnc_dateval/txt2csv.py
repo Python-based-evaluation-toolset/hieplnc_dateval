@@ -5,16 +5,20 @@ global ctx
 ctx = {
     'loop': True, # repeat map-reduce process
     'dat': [],
+    'csvout': None,
     'user': {}, # user-space states
 }
 
 def txt2csv(args=None):
+    global ctx
     parser = argparse.ArgumentParser(description='Text to csv2')
     parser.add_argument("--engine", help="python consists of parser engine.", required=True)
     parser.add_argument("--logs", help="text folder holds log data.", required=True)
     parser.add_argument("--csvout", help="output csv file.")
     parser.add_argument("--stdout", help="write to stdout", action=argparse.BooleanOptionalAction)
     args = parser.parse_args(args)
+
+    ctx['csvout'] = args.csvout
 
     engine = {}
     with open(args.engine, 'r') as file:
